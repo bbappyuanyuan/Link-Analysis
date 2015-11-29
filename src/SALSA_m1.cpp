@@ -19,7 +19,7 @@ const string datasets[9] = {"abortion", "computational_complexity", "computation
 
 int main() {
     for (string dataset : datasets) {
-        Graph *g = new Graph("abortion");
+        Graph *g = new Graph(dataset);
 #ifdef DEBUG
         cout << "V = " << g->n << endl;
         cout << "|E| = " << g->v.size() << endl;
