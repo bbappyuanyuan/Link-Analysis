@@ -5,8 +5,8 @@
 #define DEBUG
 
 #include <iostream>
-#include "../lib/Graph.h"
-#include "../lib/UnionSet.h"
+#include "Graph.h"
+#include "UnionSet.h"
 
 using std::cout;
 using std::endl;

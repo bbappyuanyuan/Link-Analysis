@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "../lib/Graph.h"
+#include "Graph.h"
 
 using std::cout;
 using std::endl;
