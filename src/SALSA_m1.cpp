@@ -2,59 +2,70 @@
 // Created by Zifeng Yuan on 11/29/15.
 //
 
-#define DEBUG
+//#define DEBUG
 
 #include <iostream>
 #include <cmath>
 #include "Graph.h"
+#include "export_service.h"
 
 using std::cout;
 using std::endl;
 
 double gap(const vector<double> &a, const vector<double> &b);
 
+const string datasets[9] = {"abortion", "computational_complexity", "computational_geometry", "death_penalty",
+                            "genetic", "gun_control", "movies", "net_censorship", "test"};
+
 int main() {
-    Graph *g = new Graph("test");
+    for (string dataset : datasets) {
+        Graph *g = new Graph("abortion");
 #ifdef DEBUG
-    cout << "V = " << g->n << endl;
-    cout << "|E| = " << g->v.size() << endl;
+        cout << "V = " << g->n << endl;
+        cout << "|E| = " << g->v.size() << endl;
 #endif
 
-    int hub_size = 0, authority_size = 0;
-    for (int i = 0; i < g->n; ++i) {
-        if (g->out_degree[i])
-            ++hub_size;
-        if (g->in_degree[i])
-            ++authority_size;
-    }
+        int hub_size = 0, authority_size = 0;
+        for (int i = 0; i < g->n; ++i) {
+            if (g->out_degree[i])
+                ++hub_size;
+            if (g->in_degree[i])
+                ++authority_size;
+        }
 #ifdef DEBUG
-    cout << "|HUB| = " << hub_size << endl;
-    cout << "|AUTHORITY| = " << authority_size << endl;
+        cout << "|HUB| = " << hub_size << endl;
+        cout << "|AUTHORITY| = " << authority_size << endl;
 #endif
 
-    vector<double> authority(g->n, 0);
-    for (int i = 0; i < g->n; ++i)
-        if (g->in_degree[i])
-            authority[i] = 1.0 / authority_size;
-    vector<double> next_authority(g->n, 0);
-    while (true) {
-        for (int u = 0, v, w; u < g->n; ++u)
-            if (g->in_degree[u]) {
-                next_authority[u] = 0;
-                for (int j = g->inv_link[u]; j != -1; j = g->inv_next[j]) {
-                    v = g->inv_v[j];
-                    for (int k = g->link[v]; k != -1; k = g->next[k]) {
-                        w = g->v[k];
-                        next_authority[u] += authority[w] / (g->out_degree[v] * g->in_degree[w]);
+        vector<double> authority(g->n, 0);
+        for (int i = 0; i < g->n; ++i)
+            if (g->in_degree[i])
+                authority[i] = 1.0 / authority_size;
+        vector<double> next_authority(g->n, 0);
+        while (true) {
+            for (int u = 0, v, w; u < g->n; ++u)
+                if (g->in_degree[u]) {
+                    next_authority[u] = 0;
+                    for (int j = g->inv_link[u]; j != -1; j = g->inv_next[j]) {
+                        v = g->inv_v[j];
+                        for (int k = g->link[v]; k != -1; k = g->next[k]) {
+                            w = g->v[k];
+                            next_authority[u] += authority[w] / (g->out_degree[v] * g->in_degree[w]);
+                        }
                     }
                 }
-            }
-        if (gap(authority, next_authority) < 1e-8) break;
-        authority = next_authority;
-    }
+#ifdef DEBUG
+            cout << "gap = " << gap(authority, next_authority) << endl;
+#endif
+            if (gap(authority, next_authority) < 1e-8) break;
+            authority = next_authority;
+        }
 
-    for (int i = 0; i < g->n; ++i)
-        cout << "Authority " << i << " = " << authority[i] << endl;
+        for (int i = 0; i < g->n; ++i)
+            cout << "Authority " << i << " = " << authority[i] << endl;
+
+        file_export("SALSA_m1", dataset, g, authority);
+    }
 
     return 0;
 }

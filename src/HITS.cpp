@@ -2,11 +2,12 @@
 // Created by Zifeng Yuan on 11/29/15.
 //
 
-#define DEBUG
+//#define DEBUG
 
 #include <iostream>
 #include <cmath>
 #include "Graph.h"
+#include "export_service.h"
 
 using std::cout;
 using std::endl;
@@ -15,39 +16,46 @@ void normalize(vector<double> &a);
 
 double gap(const vector<double> &a, const vector<double> &b);
 
+const string datasets[9] = {"abortion", "computational_complexity", "computational_geometry", "death_penalty",
+                            "genetic", "gun_control", "movies", "net_censorship", "test"};
+
 int main() {
-    Graph *g = new Graph("test");
+    for (string dataset : datasets) {
+        Graph *g = new Graph("abortion");
 #ifdef DEBUG
-    cout << "V = " << g->n << endl;
-    cout << "|E| = " << g->v.size() << endl;
+        cout << "V = " << g->n << endl;
+        cout << "|E| = " << g->v.size() << endl;
 #endif
 
-    vector<double> authority(g->n, 1);
-    vector<double> hub(g->n, 1);
-    normalize(authority);
-    normalize(hub);
-    vector<double> next_authority(g->n);
-    vector<double> next_hub(g->n);
-    while (true) {
-        for (int i = 0; i < g->n; ++i) {
-            next_authority[i] = next_hub[i] = 0;
-            for (int j = g->inv_link[i]; j != -1; j = g->inv_next[j])
-                next_authority[i] += hub[g->inv_v[j]];
-            for (int j = g->link[i]; j != -1; j = g->next[j])
-                next_hub[i] += authority[g->v[j]];
+        vector<double> authority(g->n, 1);
+        vector<double> hub(g->n, 1);
+        normalize(authority);
+        normalize(hub);
+        vector<double> next_authority(g->n);
+        vector<double> next_hub(g->n);
+        while (true) {
+            for (int i = 0; i < g->n; ++i) {
+                next_authority[i] = next_hub[i] = 0;
+                for (int j = g->inv_link[i]; j != -1; j = g->inv_next[j])
+                    next_authority[i] += hub[g->inv_v[j]];
+                for (int j = g->link[i]; j != -1; j = g->next[j])
+                    next_hub[i] += authority[g->v[j]];
+            }
+            normalize(next_authority);
+            normalize(next_hub);
+#ifdef DEBUG
+            cout << "gap = " << gap(authority, next_authority) + gap(hub, next_hub) << endl;
+#endif
+            if (gap(authority, next_authority) + gap(hub, next_hub) < 1e-8) break;
+            authority = next_authority;
+            hub = next_hub;
         }
-        normalize(next_authority);
-        normalize(next_hub);
-#ifdef DEBUG
-        cout << "gap = " << gap(authority, next_authority) + gap(hub, next_hub) << endl;
-#endif
-        if (gap(authority, next_authority) + gap(hub, next_hub) < 1e-8) break;
-        authority = next_authority;
-        hub = next_hub;
-    }
 
-    for (int i = 0; i < g->n; ++i)
-        cout << "Authority " << i << " = " << authority[i] << endl;
+        for (int i = 0; i < g->n; ++i)
+            cout << "Authority " << i << " = " << authority[i] << endl;
+
+        file_export("HITS", dataset, g, authority);
+    }
 
     return 0;
 }

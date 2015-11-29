@@ -4,9 +4,12 @@
 
 #include "Graph.h"
 
-#include <fstream>
-
-using std::ifstream;
+bool Graph::my_getline(ifstream &file, string &line) {
+    while (getline(file, line))
+        if (!line.empty())
+            return true;
+    return false;
+}
 
 void Graph::add_edge(int x, int y) {
     ++in_degree[y];
@@ -23,6 +26,15 @@ Graph::Graph(string dataset) {
     ifstream file;
     file.open("dataset/" + dataset + "/nodes");
     file >> n;
+    type.resize(n, 'R');
+    string line;
+    while (my_getline(file, line)) {
+        int id = atoi(line.substr(0, line.find(' ')).c_str());
+        type[id] = line.substr(line.find('['), 2).c_str()[1];
+        my_getline(file, line);
+        my_getline(file, line);
+        my_getline(file, line);
+    }
     in_degree.resize(n, 0);
     out_degree.resize(n, 0);
     link.resize(n, -1);
