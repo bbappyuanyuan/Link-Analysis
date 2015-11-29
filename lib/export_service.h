@@ -8,12 +8,19 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <utility>
+#include <algorithm>
+#include <iomanip>
 
 #include "Graph.h"
 
 using std::string;
 using std::ofstream;
 using std::endl;
+using std::pair;
+using std::make_pair;
+using std::sort;
+using std::reverse;
 
 void file_export(string reporter, string dataset, Graph *g, const vector<double> &p);
 

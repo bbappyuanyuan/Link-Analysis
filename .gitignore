@@ -92,4 +92,4 @@ cmake_install.cmake
 install_manifest.txt
 
 ### Output ###
-dataset/**/*_out
+dataset/**/*_output
