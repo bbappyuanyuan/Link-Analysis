@@ -67,6 +67,7 @@ int main() {
             }
 
         file_export("SALSA_m2", dataset, g->n, g->type, authority);
+        delete g;
     }
 
     return 0;

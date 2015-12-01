@@ -9,8 +9,7 @@
 #include "basic_service.hpp"
 #include "Graph.hpp"
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 void normalize(vector<double> &a);
 
@@ -55,6 +54,7 @@ int main() {
 //            cout << "Authority " << i << " = " << authority[i] << endl;
 
         file_export("HITS", dataset, g->n, g->type, authority);
+        delete g;
     }
 
     return 0;

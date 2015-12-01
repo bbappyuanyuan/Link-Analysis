@@ -63,6 +63,7 @@ int main() {
             cout << "Authority " << i << " = " << authority[i] << endl;
 
         file_export("SALSA_m1", dataset, g->n, g->type, authority);
+        delete g;
     }
 
     return 0;
