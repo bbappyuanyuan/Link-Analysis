@@ -42,13 +42,13 @@ vector<string> get_datasets() {
     return ret;
 }
 
-void file_export(string reporter, string dataset, int n, vector<char> type, const vector<double> &point) {
+void file_export(string reporter, string dataset, int n, const vector<char> &type, const vector<double> &point) {
     ofstream file;
     file.open("dataset/" + dataset + "/" + reporter);
     file << n << endl;
-    file.setf(std::ios::left);
+    file.setf(ios::left);
     for (int i = 0; i < n; ++i)
-        file << std::setw(8) << i << std::setw(5) << type[i] << std::setw(10) << point[i] << endl;
+        file << setw(8) << i << setw(5) << type[i] << setw(10) << point[i] << endl;
     file.close();
 
     vector<pair<double, int>> data(n);
@@ -58,9 +58,9 @@ void file_export(string reporter, string dataset, int n, vector<char> type, cons
     reverse(data.begin(), data.end());
     file.open("dataset/" + dataset + "/" + reporter + "_descending");
     file << n << endl;
-    file.setf(std::ios::left);
+    file.setf(ios::left);
     for (int i = 0; i < n; ++i)
-        file << std::setw(8) << data[i].second << std::setw(5) << type[data[i].second] << std::setw(10) <<
+        file << setw(8) << data[i].second << setw(5) << type[data[i].second] << setw(10) <<
         data[i].first << endl;
     file.close();
 }
