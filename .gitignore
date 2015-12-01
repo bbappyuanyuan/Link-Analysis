@@ -92,4 +92,5 @@ cmake_install.cmake
 install_manifest.txt
 
 ### Output ###
-dataset/**/*_output
+dataset/*/HITS*
+dataset/*/SALSA*

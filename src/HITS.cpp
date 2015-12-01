@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <cmath>
-#include "Graph.h"
-#include "export_service.h"
+#include "basic_service.hpp"
+#include "Graph.hpp"
 
 using std::cout;
 using std::endl;
@@ -16,10 +16,11 @@ void normalize(vector<double> &a);
 
 double gap(const vector<double> &a, const vector<double> &b);
 
-const string datasets[9] = {"abortion", "computational_complexity", "computational_geometry", "death_penalty",
-                            "genetic", "gun_control", "movies", "net_censorship", "test"};
+const vector<string> datasets = get_datasets();
 
 int main() {
+    get_datasets();
+    return  0;
     for (string dataset : datasets) {
         Graph *g = new Graph(dataset);
 #ifdef DEBUG
@@ -54,7 +55,7 @@ int main() {
         for (int i = 0; i < g->n; ++i)
             cout << "Authority " << i << " = " << authority[i] << endl;
 
-        file_export("HITS", dataset, g, authority);
+        file_export("HITS", dataset, g->n, g->type, authority);
     }
 
     return 0;

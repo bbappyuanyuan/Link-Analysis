@@ -6,16 +6,15 @@
 
 #include <iostream>
 #include <cmath>
-#include "Graph.h"
-#include "export_service.h"
+#include "basic_service.hpp"
+#include "Graph.hpp"
 
 using std::cout;
 using std::endl;
 
 double gap(const vector<double> &a, const vector<double> &b);
 
-const string datasets[9] = {"abortion", "computational_complexity", "computational_geometry", "death_penalty",
-                            "genetic", "gun_control", "movies", "net_censorship", "test"};
+const vector<string> datasets = get_datasets();
 
 int main() {
     for (string dataset : datasets) {
@@ -64,7 +63,7 @@ int main() {
         for (int i = 0; i < g->n; ++i)
             cout << "Authority " << i << " = " << authority[i] << endl;
 
-        file_export("SALSA_m1", dataset, g, authority);
+        file_export("SALSA_m1", dataset, g->n, g->type, authority);
     }
 
     return 0;
