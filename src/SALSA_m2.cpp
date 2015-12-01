@@ -9,13 +9,13 @@
 #include "Graph.hpp"
 #include "UnionSet.hpp"
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 const vector<string> datasets = get_datasets();
 
 int main() {
     for (string dataset : datasets) {
+        cout << "runnning for dataset " << dataset << endl;
         Graph *g = new Graph(dataset);
 #ifdef DEBUG
         cout << "V = " << g->n << endl;
@@ -55,7 +55,7 @@ int main() {
             if (g->in_degree[i]) { // authority
                 authority[i] = authority_block_size[s->get_f(g->n + i)] / (double) authority_size * g->in_degree[i] /
                                (double) authority_block_in_degree[s->get_f(g->n + i)];
-                cout << "Authority " << i << " = " << authority[i] << endl;
+//                cout << "Authority " << i << " = " << authority[i] << endl;
 #ifdef DEBUG
                 cout << "\tauthority_block_size: " << authority_block_size[s->get_f(g->n + i)] << endl;
                 cout << "\tauthority_size: " << authority_size << endl;
@@ -63,7 +63,7 @@ int main() {
                 cout << "\tauthority_block_in_degree: " << authority_block_in_degree[s->get_f(g->n + i)] << endl;
 #endif
             } else {
-                cout << "Authority " << i << " = " << 0 << endl;
+//                cout << "Authority " << i << " = " << 0 << endl;
             }
 
         file_export("SALSA_m2", dataset, g->n, g->type, authority);

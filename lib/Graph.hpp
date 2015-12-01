@@ -2,8 +2,8 @@
 // Created by Zifeng Yuan on 11/28/15.
 //
 
-#ifndef LINK_ANALYSIS_GRAPH_H
-#define LINK_ANALYSIS_GRAPH_H
+#ifndef LINK_ANALYSIS_GRAPH_HPP
+#define LINK_ANALYSIS_GRAPH_HPP
 
 
 #include <fstream>
@@ -11,10 +11,7 @@
 #include <string>
 #include "basic_service.hpp"
 
-using std::ifstream;
-using std::getline;
-using std::vector;
-using std::string;
+using namespace std;
 
 class Graph {
 
@@ -88,4 +85,4 @@ Graph::Graph(string dataset) {
 }
 
 
-#endif //LINK_ANALYSIS_GRAPH_H
+#endif //LINK_ANALYSIS_GRAPH_HPP

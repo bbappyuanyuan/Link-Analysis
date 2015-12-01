@@ -9,8 +9,7 @@
 #include "basic_service.hpp"
 #include "Graph.hpp"
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 double gap(const vector<double> &a, const vector<double> &b);
 

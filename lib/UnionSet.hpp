@@ -2,13 +2,13 @@
 // Created by Zifeng Yuan on 11/28/15.
 //
 
-#ifndef LINK_ANALYSIS_UNIONSET_H
-#define LINK_ANALYSIS_UNIONSET_H
+#ifndef LINK_ANALYSIS_UNIONSET_HPP
+#define LINK_ANALYSIS_UNIONSET_HPP
 
 
 #include <vector>
 
-using std::vector;
+using namespace std;
 
 class UnionSet {
 
@@ -39,4 +39,4 @@ void UnionSet::_union(int x, int y) {
 }
 
 
-#endif //LINK_ANALYSIS_UNIONSET_H
+#endif //LINK_ANALYSIS_UNIONSET_HPP

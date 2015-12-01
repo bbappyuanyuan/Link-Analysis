@@ -19,9 +19,8 @@ double gap(const vector<double> &a, const vector<double> &b);
 const vector<string> datasets = get_datasets();
 
 int main() {
-    get_datasets();
-    return  0;
     for (string dataset : datasets) {
+        cout << "runnning for dataset " << dataset << endl;
         Graph *g = new Graph(dataset);
 #ifdef DEBUG
         cout << "V = " << g->n << endl;
@@ -52,8 +51,8 @@ int main() {
             hub = next_hub;
         }
 
-        for (int i = 0; i < g->n; ++i)
-            cout << "Authority " << i << " = " << authority[i] << endl;
+//        for (int i = 0; i < g->n; ++i)
+//            cout << "Authority " << i << " = " << authority[i] << endl;
 
         file_export("HITS", dataset, g->n, g->type, authority);
     }

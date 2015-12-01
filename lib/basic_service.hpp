@@ -2,11 +2,10 @@
 // Created by Zifeng Yuan on 11/29/15.
 //
 
-#ifndef LINK_ANALYSIS_EXPORT_SERVICE_H
-#define LINK_ANALYSIS_EXPORT_SERVICE_H
+#ifndef LINK_ANALYSIS_EXPORT_SERVICE_HPP
+#define LINK_ANALYSIS_EXPORT_SERVICE_HPP
 
 #include <boost/filesystem.hpp>
-#include <dirent.h>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -15,15 +14,7 @@
 #include <algorithm>
 #include <iomanip>
 
-using namespace boost::filesystem;
-using std::string;
-using std::vector;
-using std::ofstream;
-using std::endl;
-using std::pair;
-using std::make_pair;
-using std::sort;
-using std::reverse;
+using namespace std;
 
 string get_nodes_file(string dataset);
 
@@ -42,19 +33,12 @@ string get_adj_list_file(string dataset) {
 }
 
 vector<string> get_datasets() {
+    using namespace boost::filesystem;
     vector<string> ret;
-//    DIR *dir = opendir("dataset");
-//    dirent *node;
-//    while ((node = readdir(dir)) != NULL)
-//        if (node->d_name[0] == '_')
-//            ret.push_back(string(node->d_name));
-//    closedir(dir);
     path p("dataset");
     for (auto item = directory_iterator(p); item != directory_iterator(); ++item)
-        if (is_directory(item->path())) {
-            std::cout << item->path().filename().string() << endl;
+        if (is_directory(item->path()))
             ret.push_back(item->path().filename().string());
-        }
     return ret;
 }
 
@@ -81,4 +65,4 @@ void file_export(string reporter, string dataset, int n, vector<char> type, cons
     file.close();
 }
 
-#endif //LINK_ANALYSIS_EXPORT_SERVICE_H
+#endif //LINK_ANALYSIS_EXPORT_SERVICE_HPP
