@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include "basic_service.hpp"
-#include "Graph.hpp"
-#include "UnionSet.hpp"
+#include "graph.hpp"
+#include "union_set.hpp"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ const vector<string> datasets = get_datasets();
 int main() {
     for (string dataset : datasets) {
         cout << "runnning for dataset " << dataset << endl;
-        Graph *g = new Graph(dataset);
+        CGraph *g = new CGraph(dataset);
 #ifdef DEBUG
         cout << "V = " << g->n << endl;
         cout << "|E| = " << g->v.size() << endl;
@@ -33,7 +33,7 @@ int main() {
         cout << "|HUB| = " << hub_size << endl;
         cout << "|AUTHORITY| = " << authority_size << endl;
 #endif
-        UnionSet *s = new UnionSet(g->n << 1);
+        CUnionSet *s = new CUnionSet(g->n << 1);
         for (int i = 0; i < g->n; ++i)
             for (int j = g->link[i]; j != -1; j = g->next[j]) {
 #ifdef DEBUG

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class Graph {
+class CGraph {
 
     bool my_getline(ifstream &file, string &line);
 
@@ -28,17 +28,17 @@ public:
     vector<int> inv_link;
     vector<int> inv_v, inv_next;
 
-    Graph(string dataset);
+    CGraph(string dataset);
 };
 
-bool Graph::my_getline(ifstream &file, string &line) {
+bool CGraph::my_getline(ifstream &file, string &line) {
     while (getline(file, line))
         if (!line.empty())
             return true;
     return false;
 }
 
-void Graph::add_edge(int x, int y) {
+void CGraph::add_edge(int x, int y) {
     ++in_degree[y];
     ++out_degree[x];
     v.push_back(y);
@@ -49,7 +49,7 @@ void Graph::add_edge(int x, int y) {
     inv_link[y] = inv_v.size() - 1;
 }
 
-Graph::Graph(string dataset) {
+CGraph::CGraph(string dataset) {
     ifstream file;
     file.open(get_nodes_file(dataset));
     file >> n;

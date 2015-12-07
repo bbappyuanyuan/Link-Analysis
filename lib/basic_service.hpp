@@ -2,8 +2,8 @@
 // Created by Zifeng Yuan on 11/29/15.
 //
 
-#ifndef LINK_ANALYSIS_EXPORT_SERVICE_HPP
-#define LINK_ANALYSIS_EXPORT_SERVICE_HPP
+#ifndef LINK_ANALYSIS_BASIC_SERVICE_HPP
+#define LINK_ANALYSIS_BASIC_SERVICE_HPP
 
 #include <boost/filesystem.hpp>
 #include <string>
@@ -22,7 +22,7 @@ string get_adj_list_file(string dataset);
 
 vector<string> get_datasets();
 
-void file_export(string reporter, string dataset, int n, vector<char> type, const vector<double> &point);
+void file_export(string reporter, string dataset, int n, const vector<char> &type, const vector<double> &point);
 
 string get_nodes_file(string dataset) {
     return "dataset/" + dataset + "/graph/nodes";
@@ -65,4 +65,4 @@ void file_export(string reporter, string dataset, int n, const vector<char> &typ
     file.close();
 }
 
-#endif //LINK_ANALYSIS_EXPORT_SERVICE_HPP
+#endif //LINK_ANALYSIS_BASIC_SERVICE_HPP

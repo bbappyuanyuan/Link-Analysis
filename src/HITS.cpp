@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cmath>
 #include "basic_service.hpp"
-#include "Graph.hpp"
+#include "graph.hpp"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ const vector<string> datasets = get_datasets();
 int main() {
     for (string dataset : datasets) {
         cout << "runnning for dataset " << dataset << endl;
-        Graph *g = new Graph(dataset);
+        CGraph *g = new CGraph(dataset);
 #ifdef DEBUG
         cout << "V = " << g->n << endl;
         cout << "|E| = " << g->v.size() << endl;
