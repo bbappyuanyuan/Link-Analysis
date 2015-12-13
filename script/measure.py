@@ -55,6 +55,7 @@ if __name__ == '__main__':
     SALSA_AP3, SALSA_AP5, SALSA_AP10, SALSA_AP20 = [], [], [], []
     HITS_RR3, HITS_RR5, HITS_RR10, HITS_RR20 = [], [], [], []
     SALSA_RR3, SALSA_RR5, SALSA_RR10, SALSA_RR20 = [], [], [], []
+    total_size, rel_size = [], []
 
     for dataset_path in datasets_path:
         print('measuring ' + dataset_path)
@@ -81,17 +82,20 @@ if __name__ == '__main__':
         SALSA_RR10.append(calc_RR(rel, 10))
         SALSA_RR20.append(calc_RR(rel, 20))
 
+        total_size.append(len(rel))
+        rel_size.append(sum(rel))
+
     AP_wb = Workbook()
     AP_ws = AP_wb.active
     AP_ws.append([''] + list(datasets_name))
-    AP_ws.append(['HITS_AP@3'] + list(HITS_AP3))
-    AP_ws.append(['HITS_AP@5'] + list(HITS_AP5))
-    AP_ws.append(['HITS_AP@10'] + list(HITS_AP10))
-    AP_ws.append(['HITS_AP@20'] + list(HITS_AP20))
-    AP_ws.append(['SALSA_AP@3'] + list(SALSA_AP3))
-    AP_ws.append(['SALSA_AP@5'] + list(SALSA_AP5))
-    AP_ws.append(['SALSA_AP@10'] + list(SALSA_AP10))
-    AP_ws.append(['SALSA_AP@20'] + list(SALSA_AP20))
+    AP_ws.append(['HITS_AP@3'] + HITS_AP3)
+    AP_ws.append(['HITS_AP@5'] + HITS_AP5)
+    AP_ws.append(['HITS_AP@10'] + HITS_AP10)
+    AP_ws.append(['HITS_AP@20'] + HITS_AP20)
+    AP_ws.append(['SALSA_AP@3'] + SALSA_AP3)
+    AP_ws.append(['SALSA_AP@5'] + SALSA_AP5)
+    AP_ws.append(['SALSA_AP@10'] + SALSA_AP10)
+    AP_ws.append(['SALSA_AP@20'] + SALSA_AP20)
     AP_wb.save(os.path.join('result', 'AP.xlsx'))
 
     MAP_wb = Workbook()
@@ -106,14 +110,14 @@ if __name__ == '__main__':
     RR_wb = Workbook()
     RR_ws = RR_wb.active
     RR_ws.append([''] + list(datasets_name))
-    RR_ws.append(['HITS_RR@3'] + list(HITS_RR3))
-    RR_ws.append(['HITS_RR@5'] + list(HITS_RR5))
-    RR_ws.append(['HITS_RR@10'] + list(HITS_RR10))
-    RR_ws.append(['HITS_RR@20'] + list(HITS_RR20))
-    RR_ws.append(['SALSA_RR@3'] + list(SALSA_RR3))
-    RR_ws.append(['SALSA_RR@5'] + list(SALSA_RR5))
-    RR_ws.append(['SALSA_RR@10'] + list(SALSA_RR10))
-    RR_ws.append(['SALSA_RR@20'] + list(SALSA_RR20))
+    RR_ws.append(['HITS_RR@3'] + HITS_RR3)
+    RR_ws.append(['HITS_RR@5'] + HITS_RR5)
+    RR_ws.append(['HITS_RR@10'] + HITS_RR10)
+    RR_ws.append(['HITS_RR@20'] + HITS_RR20)
+    RR_ws.append(['SALSA_RR@3'] + SALSA_RR3)
+    RR_ws.append(['SALSA_RR@5'] + SALSA_RR5)
+    RR_ws.append(['SALSA_RR@10'] + SALSA_RR10)
+    RR_ws.append(['SALSA_RR@20'] + SALSA_RR20)
     RR_wb.save(os.path.join('result', 'RR.xlsx'))
 
     MRR_wb = Workbook()
@@ -124,3 +128,12 @@ if __name__ == '__main__':
     MRR_ws.append(
         ['SALSA'] + [mean(SALSA_RR3)] + [mean(SALSA_RR5)] + [mean(SALSA_RR10)] + [mean(SALSA_RR20)])
     MRR_wb.save(os.path.join('result', 'MRR.xlsx'))
+
+    sz_wb = Workbook()
+    sz_ws = sz_wb.active
+    sz_ws.append(list(datasets_name))
+    sz_ws.append(total_size)
+    sz_ws.append(rel_size)
+    sz_wb.save(os.path.join('result', 'dataset_size.xlsx'))
+
+    print('Done.')
