@@ -62,7 +62,7 @@ int main() {
         for (int i = 0; i < g->n; ++i)
             cout << "Authority " << i << " = " << authority[i] << endl;
 
-        file_export("SALSA_m1", dataset, g->n, g->type, authority);
+        file_export("SALSA", dataset, g->n, g->type, authority);
         delete g;
     }
 

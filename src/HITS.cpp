@@ -54,6 +54,7 @@ int main() {
 //            cout << "Authority " << i << " = " << authority[i] << endl;
 
         file_export("HITS", dataset, g->n, g->type, authority);
+
         delete g;
     }
 

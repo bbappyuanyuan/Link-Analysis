@@ -91,6 +91,21 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
-### Output ###
-dataset/*/HITS*
-dataset/*/SALSA*
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+### Result ###
+result/*/**

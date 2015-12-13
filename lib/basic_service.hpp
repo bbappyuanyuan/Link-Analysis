@@ -43,8 +43,12 @@ vector<string> get_datasets() {
 }
 
 void file_export(string reporter, string dataset, int n, const vector<char> &type, const vector<double> &point) {
+    using namespace boost::filesystem;
+    path p("result/" + dataset);
+    if (!exists(p)) create_directory(p);
+
     ofstream file;
-    file.open("dataset/" + dataset + "/" + reporter);
+    file.open("result/" + dataset + "/" + reporter);
     file << n << endl;
     file.setf(ios::left);
     for (int i = 0; i < n; ++i)
@@ -56,7 +60,7 @@ void file_export(string reporter, string dataset, int n, const vector<char> &typ
         data[i] = make_pair(point[i], i);
     sort(data.begin(), data.end());
     reverse(data.begin(), data.end());
-    file.open("dataset/" + dataset + "/" + reporter + "_descending");
+    file.open("result/" + dataset + "/" + reporter + "_descending");
     file << n << endl;
     file.setf(ios::left);
     for (int i = 0; i < n; ++i)
